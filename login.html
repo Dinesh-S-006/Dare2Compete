@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* === Global Reset & Login Style === */
+        /* ===== GLOBAL RESET ===== */
         * {
             margin: 0;
             padding: 0;
@@ -22,11 +22,14 @@
             color: #fff;
         }
 
+        /* ===== LOGIN PAGE ===== */
         body {
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(rgba(30, 60, 114, 0.75), rgba(42, 82, 152, 0.75)), url("login.jpg") center/cover no-repeat;
+            /* Replace with your GitHub raw image URL */
+            background: linear-gradient(rgba(30, 60, 114, 0.75), rgba(42, 82, 152, 0.75)),
+                        url("https://raw.githubusercontent.com/username/repo/main/login.jpg") center/cover no-repeat;
         }
 
         .login-container {
@@ -37,7 +40,7 @@
         }
 
         .login-content h1 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
             line-height: 1.4;
@@ -51,11 +54,11 @@
         }
 
         .login-box {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(12px);
             padding: 2rem;
             border-radius: 20px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
             transition: all 0.3s ease;
         }
 
@@ -70,6 +73,7 @@
             font-size: 0.95rem;
             background: rgba(255, 255, 255, 0.2);
             color: #fff;
+            transition: all 0.3s ease;
         }
 
         .login-box input::placeholder {
@@ -108,48 +112,21 @@
         }
 
         @keyframes shake {
-            0% {
-                transform: translateX(0);
-            }
-
-            25% {
-                transform: translateX(-5px);
-            }
-
-            50% {
-                transform: translateX(5px);
-            }
-
-            75% {
-                transform: translateX(-5px);
-            }
-
-            100% {
-                transform: translateX(0);
-            }
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
         }
 
-        .shake {
-            animation: shake 0.3s;
-        }
+        .shake { animation: shake 0.3s; }
 
+        /* ===== RESPONSIVE ===== */
         @media (max-width:480px) {
-            .login-content h1 {
-                font-size: 1.5rem;
-            }
-
-            .login-box {
-                padding: 1.5rem;
-                border-radius: 15px;
-            }
-
-            .login-box input {
-                font-size: 0.9rem;
-            }
-
-            .login-box button {
-                font-size: 0.95rem;
-            }
+            .login-content h1 { font-size: 1.5rem; }
+            .login-box { padding: 1.5rem; border-radius: 15px; }
+            .login-box input { font-size: 0.9rem; }
+            .login-box button { font-size: 0.95rem; }
         }
     </style>
 </head>
@@ -183,7 +160,6 @@
             loginBtn.disabled = true;
 
             setTimeout(() => {
-                // ✅ Sample Authentication
                 const validUsers = { "23IT01": "1234", "23EC01": "1234", "23AI01": "1234" };
                 if (validUsers[username] === password) {
                     localStorage.setItem("loggedIn", "true");
@@ -199,12 +175,13 @@
             }, 800);
         }
 
-        // Auto-redirect if already logged in
         window.addEventListener("DOMContentLoaded", () => {
-            if (localStorage.getItem("loggedIn") === "true") { window.location.href = "index.html"; }
+            if (localStorage.getItem("loggedIn") === "true") {
+                window.location.href = "index.html";
+            }
         });
     </script>
 </body>
 
-
 </html>
+
