@@ -19,14 +19,18 @@ body {
 /* ==============================
    LOGIN PAGE
 ============================== */
+/* Login page background */
 body.login-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     background: linear-gradient(rgba(30, 60, 114, 0.75), rgba(42, 82, 152, 0.75)),
         url("login.jpg") center/cover no-repeat;
 }
+
+/* Home/index page background */
+.home {
+    background: linear-gradient(rgba(0, 119, 182, 0.25), rgba(0, 180, 216, 0.25)),
+        url("background.jpeg") no-repeat center center/cover;
+}
+
 
 .login-container {
     text-align: center;
@@ -444,3 +448,4 @@ body.login-page {
     .leaderboard-section td { font-size: 0.85rem; padding: 8px; }
     .add-student-box { width: 95%; }
 }
+
