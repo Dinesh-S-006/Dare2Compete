@@ -221,18 +221,23 @@ function exportToExcel(dept=null, year=null){
 
     XLSX.writeFile(wb, dept && year ? `Leaderboard_${dept}_${year}.xlsx` : "All_Departments.xlsx");
 }
-
-// ===== DEPARTMENT SELECTION =====
 function selectDept(dept){
-    const yearSection = document.getElementById("years");
-    yearSection.innerHTML = `
-        <h3>${dept} Department - Select Year</h3>
-        <div class="year-buttons">
-            <button onclick="showLeaderboard('${dept}',1)">1st Year</button>
-            <button onclick="showLeaderboard('${dept}',2)">2nd Year</button>
-            <button onclick="showLeaderboard('${dept}',3)">3rd Year</button>
-            <button onclick="showLeaderboard('${dept}',4)">4th Year</button>
-        </div>
-    `;
-    document.getElementById("leaderboard").innerHTML="";
+    const yearSection = document.getElementById("years");
+
+    yearSection.innerHTML = `
+        <h3>${dept} Department - Select Year</h3>
+        <div class="year-buttons">
+            <button onclick="showLeaderboard('${dept}',1)">1st Year</button>
+            <button onclick="showLeaderboard('${dept}',2)">2nd Year</button>
+            <button onclick="showLeaderboard('${dept}',3)">3rd Year</button>
+            <button onclick="showLeaderboard('${dept}',4)">4th Year</button>
+        </div>
+    `;
+
+    // Clear leaderboard
+    document.getElementById("leaderboard").innerHTML = "";
+
+    // ⭐ AUTO-SCROLL TO YEAR SECTION ⭐
+    yearSection.scrollIntoView({ behavior: "smooth" });
 }
+
