@@ -39,53 +39,67 @@ function addStudent(event, dept, year){
     showLeaderboard(dept, year);
 }
 
-
-
-
-
-
 function showLeaderboard(dept, year){
-    const students = database[dept][year].slice().sort((a,b)=>b.Points - a.Points);
-    let tableRows = students.map((s,i)=>`
-        <tr>
-            <td>${i+1}</td>
-            <td>${s.Name}</td>
-            <td>${s.RegNo}</td>
-            <td>${s.Points}</td>
-        </tr>`).join('');
 
-    if(!tableRows) tableRows = `<tr><td colspan="4">No records yet</td></tr>`;
+    // ✅ Remove empty or undefined entries
+    database[dept][year] = database[dept][year].filter(s =>
+        s && s.Name && s.RegNo && s.Points !== undefined
+    );
 
-    document.getElementById("leaderboard").innerHTML = `
-        <div class="leaderboard-section">
-            <h2>${dept} - ${year} Year Leaderboard</h2>
-            <table>
-                <thead>
-                    <tr><th>Rank</th><th>Name</th><th>Register No</th><th>Points</th></tr>
-                </thead>
-                <tbody>${tableRows}</tbody>
-            </table>
-            <div style="text-align:center; margin-top:10px;">
-                <button onclick="exportToExcel('${dept}', ${year})" style="padding:8px 15px;background:#0077B6;color:#fff;border:none;border-radius:6px;cursor:pointer;">Export to Excel</button>
-            </div>
-        </div>
-        <div class="add-student-box">
-            <form onsubmit="addStudent(event,'${dept}',${year})">
-                <input type="text" id="name_${dept}_${year}" placeholder="Full Name" required>
-                <input type="text" id="reg_${dept}_${year}" placeholder="Register No" required>
-                <select id="points_${dept}_${year}">
-                    <option value="1">Participant (1 Point)</option>
-                    <option value="2">Runner-Up (2 Points)</option>
-                    <option value="3">Winner (3 Points)</option>
-                </select>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-    `;
+    const students = database[dept][year].slice().sort((a,b)=>b.Points - a.Points);
 
-    // Scroll to leaderboard
-    document.getElementById("leaderboard").scrollIntoView({behavior:"smooth"});
+    let tableRows = students.map((s,i)=>`
+        <tr>
+            <td>${i+1}</td>
+            <td>${s.Name}</td>
+            <td>${s.RegNo}</td>
+            <td>${s.Points}</td>
+        </tr>`).join('');
+
+    if(!tableRows) 
+        tableRows = `<tr><td colspan="4">No records yet</td></tr>`;
+
+    document.getElementById("leaderboard").innerHTML = `
+        <div class="leaderboard-section">
+            <h2>${dept} - ${year} Year Leaderboard</h2>
+            <table>
+                <thead>
+                    <tr><th>Rank</th><th>Name</th><th>Register No</th><th>Points</th></tr>
+                </thead>
+                <tbody>${tableRows}</tbody>
+            </table>
+
+            <div style="text-align:center; margin-top:10px;">
+                <button onclick="exportToExcel('${dept}', ${year})" 
+                    style="padding:8px 15px;background:#0077B6;color:#fff;border:none;border-radius:6px;cursor:pointer;">
+                    Export to Excel
+                </button>
+            </div>
+        </div>
+
+        <div class="add-student-box">
+            <form onsubmit="addStudent(event,'${dept}',${year})">
+                <input type="text" id="name_${dept}_${year}" placeholder="Full Name" required>
+                <input type="text" id="reg_${dept}_${year}" placeholder="Register No" required>
+                <select id="points_${dept}_${year}">
+                    <option value="1">Participant (1 Point)</option>
+                    <option value="2">Runner-Up (2 Points)</option>
+                    <option value="3">Winner (3 Points)</option>
+                </select>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    `;
+
+    document.getElementById("leaderboard").scrollIntoView({behavior:"smooth"});
 }
+
+
+
+
+
+
+
 
 
 
@@ -240,4 +254,5 @@ function selectDept(dept){
     // ⭐ AUTO-SCROLL TO YEAR SECTION ⭐
     yearSection.scrollIntoView({ behavior: "smooth" });
 }
+
 
